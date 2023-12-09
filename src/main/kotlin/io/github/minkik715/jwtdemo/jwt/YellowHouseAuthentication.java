@@ -11,6 +11,9 @@ public class YellowHouseAuthentication extends AbstractAuthenticationToken {
         this.accountId = accountId;
     }
 
+    public String getAccountId() {
+        return accountId;
+    }
 
     @Override
     public Object getCredentials() {

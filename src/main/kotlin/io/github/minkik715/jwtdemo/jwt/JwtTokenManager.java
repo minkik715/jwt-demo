@@ -1,12 +1,10 @@
 package io.github.minkik715.jwtdemo.jwt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -33,6 +31,7 @@ public class JwtTokenManager {
     }
 
     private final long tokenExpiredTime = 10 * 60 * 1000;
+
 
     public String issueToken(String accountId) {
         Map<String, Object> claims = new HashMap<>();
@@ -71,4 +70,6 @@ public class JwtTokenManager {
         }
         return claims;
     }
+
+
 }
