@@ -8,11 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.io.File;
 import java.io.IOException;
 
-public class JwtTokenAuthFilter extends OncePerRequestFilter {
-
-
+public class YellowHouseJwtTokenAuthFilter extends OncePerRequestFilter {
     private JwtTokenManager tokenManager;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -22,7 +21,10 @@ public class JwtTokenAuthFilter extends OncePerRequestFilter {
             Authentication authentication = new YellowHouseAuthentication(accountId);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }else{
+            response.sendError(400, "wrong token");
+            response.setStatus(400);
             SecurityContextHolder.getContext().setAuthentication(null);
         }
+        super.doFilter(request, response, filterChain);
     }
 }

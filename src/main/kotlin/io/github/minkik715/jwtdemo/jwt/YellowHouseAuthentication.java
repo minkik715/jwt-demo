@@ -1,10 +1,12 @@
 package io.github.minkik715.jwtdemo.jwt;
 
+import io.github.minkik715.jwtdemo.domain.enums.UserRole;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class YellowHouseAuthentication extends AbstractAuthenticationToken {
 
     private final String accountId;
+
 
     public YellowHouseAuthentication(String accountId) {
         super(null);
