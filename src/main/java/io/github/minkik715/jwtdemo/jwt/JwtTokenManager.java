@@ -39,14 +39,14 @@ public class JwtTokenManager {
 
         Map<String, Object> header = new HashMap<>();
         header.put("type", "jwt");
-        header.put("alg", "ES256");
+        header.put("alg", "HS256");
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setHeader(header)
                 .setExpiration(new Date(now.getTime() + tokenExpiredTime))
-                .signWith(SignatureAlgorithm.ES256, encodedSecret)
+                .signWith(SignatureAlgorithm.HS256, encodedSecret)
                 .compact();
 
     }

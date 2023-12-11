@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -11,8 +12,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.File;
 import java.io.IOException;
 
+@RequiredArgsConstructor
 public class YellowHouseJwtTokenAuthFilter extends OncePerRequestFilter {
-    private JwtTokenManager tokenManager;
+    private final JwtTokenManager tokenManager;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("x-auth-token");
@@ -21,7 +23,6 @@ public class YellowHouseJwtTokenAuthFilter extends OncePerRequestFilter {
             Authentication authentication = new YellowHouseAuthentication(accountId);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }else{
-            response.sendError(400, "wrong token");
             response.setStatus(400);
             SecurityContextHolder.getContext().setAuthentication(null);
         }
